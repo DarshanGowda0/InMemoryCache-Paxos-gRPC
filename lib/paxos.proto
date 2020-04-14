@@ -1,0 +1,93 @@
+syntax = "proto3";
+import "google/protobuf/empty.proto";
+
+
+message Data {
+    string key = 1;
+    string value = 2;
+}
+
+message PrepareArgs {
+    int64 proposal = 1;
+}
+
+message PrepareReply {
+    int64 prepareProposal = 1;
+    int64 acceptedProposal = 2;
+    Data acceptedValue = 3;
+}
+
+message AcceptArgs {
+    int64 proposal = 1;
+    Data value = 2;
+}
+
+message AcceptReply {
+    bool accepted = 1;
+}
+
+message DecideArgs {
+    int64 proposal = 1;
+    Data value = 2;
+}
+
+message DecideReply {
+    bool decided = 1;
+}
+
+message Op {
+    string op = 1;
+    Data keyValue = 2;
+}
+
+message StartArgs {
+    int64 proposal = 1;
+    Op op = 2;
+}
+
+message FinishArgs {
+    int64 proposal = 1;
+}
+service Paxos {
+
+    rpc start (StartArgs) returns (google.protobuf.Empty) {
+    }
+
+    rpc propose (Data) returns (google.protobuf.Empty) {
+    }
+
+    rpc prepare (PrepareArgs) returns (PrepareReply) {
+    }
+
+    rpc accept (AcceptArgs) returns (AcceptReply) {
+    }
+
+    rpc decided (DecideArgs) returns (DecideReply) {
+    }
+
+    rpc finish (FinishArgs) returns (google.protobuf.Empty) {
+    }
+
+}
+
+message Response {
+    int32 statusCode = 1;
+    string message = 2;
+}
+
+message Request {
+    string key = 1;
+    string value = 2;
+}
+
+service KeyValueStore {
+
+    rpc getRequest (Request) returns (Response) {
+    }
+
+    rpc putRequest (Request) returns (Response) {
+    }
+
+    rpc deleteRequest (Request) returns (Response) {
+    }
+}
