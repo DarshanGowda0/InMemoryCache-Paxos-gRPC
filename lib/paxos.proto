@@ -8,18 +8,20 @@ message Data {
 }
 
 message PrepareArgs {
-    int64 proposal = 1;
+    int64 pid = 1;
+    int64 proposal = 2;
 }
 
 message PrepareReply {
-    int64 prepareProposal = 1;
+    int64 promised = 1;
     int64 acceptedProposal = 2;
     Data acceptedValue = 3;
 }
 
 message AcceptArgs {
-    int64 proposal = 1;
-    Data value = 2;
+    int64 pid = 1;
+    int64 proposal = 2;
+    Data value = 3;
 }
 
 message AcceptReply {
@@ -27,12 +29,13 @@ message AcceptReply {
 }
 
 message DecideArgs {
-    int64 proposal = 1;
-    Data value = 2;
+    int64 pid = 1;
+    int64 proposal = 2;
+    Data value = 3;
 }
 
 message DecideReply {
-    bool decided = 1;
+    int64 done = 1;
 }
 
 message Op {
@@ -41,19 +44,35 @@ message Op {
 }
 
 message StartArgs {
-    int64 proposal = 1;
-    Op op = 2;
+    int64 pid = 1;
+    Data value = 2;
 }
 
 message FinishArgs {
-    int64 proposal = 1;
+    int64 pid = 1;
 }
+
+message Number {
+    int64 number = 1;
+}
+
+message StatusReply {
+    string status = 1;
+    Data value = 2;
+}
+
 service Paxos {
 
     rpc start (StartArgs) returns (google.protobuf.Empty) {
     }
 
-    rpc propose (Data) returns (google.protobuf.Empty) {
+    rpc finish (FinishArgs) returns (google.protobuf.Empty) {
+    }
+
+    rpc max (google.protobuf.Empty) returns (Number) {
+    }
+
+    rpc min (google.protobuf.Empty) returns (Number) {
     }
 
     rpc prepare (PrepareArgs) returns (PrepareReply) {
@@ -65,8 +84,9 @@ service Paxos {
     rpc decided (DecideArgs) returns (DecideReply) {
     }
 
-    rpc finish (FinishArgs) returns (google.protobuf.Empty) {
+    rpc status (Number) returns (StatusReply) {
     }
+
 
 }
 
@@ -82,12 +102,12 @@ message Request {
 
 service KeyValueStore {
 
-    rpc getRequest (Request) returns (Response) {
+    rpc get (Request) returns (Response) {
     }
 
-    rpc putRequest (Request) returns (Response) {
+    rpc put (Request) returns (Response) {
     }
 
-    rpc deleteRequest (Request) returns (Response) {
+    rpc delete (Request) returns (Response) {
     }
 }

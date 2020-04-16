@@ -1,0 +1,66 @@
+
+
+PrepareArgs(int seq, int proposalNumber)
+PrepareReply(int promised, int acceptedN, Value acceptedV)
+
+AcceptArgs(int seq, int proposalNum, Value value)
+AcceptReply(bool accepted)
+
+DecidedArgs(int seq, int proposalNumber, Value value)
+DecidedReply(int done)
+
+
+class State:
+    int PROMISED_N
+    int ACCEPTED_N
+    Value ACCEPTED_V
+    string STATUS
+
+class PAXOS:
+    int MAX_SEQ
+    int MIN_SEQ
+    int[] DONE_SEQS
+    map<int,state> instances
+
+
+    public prepare(PrepareArgs) -> PrepareReply
+    public accept(AcceptArgs) -> AcceptReply
+    public decided(DecidedArgs) -> DecidedReply
+
+    private getNextProposalNumber(int me) -> int
+    private selectMajorityServers() -> string[]
+    private sendPrepare(string[] acceptors, int seq, int proposalNum, Value value) -> (int noOfServers, maxValue)
+    private sendAccept(string[] acceptors, int seq, int proposalNum, Value maxValue) -> int noOfServers
+    private sendDecided(int seq, int proposalNumber, Value maxValue)
+
+    public start(int seq, Value value)
+    public done(int seq)
+    public max() -> int
+    public min() -> int
+    public status(int seq) -> (State.status, State.acceptedV)
+
+
+class Op:
+    string type
+    string key
+    string value
+    uid string
+
+class KVPaxos:
+    map<string, string> store
+    map<string, int> requestNumber
+    int curSeq
+
+    public sync(int maxSeq)
+
+    private startInstance(int seq, Op op) -> Value
+    private reachAgreement(Op value)
+
+    public get(Request) -> Response
+    public put(Request) -> Response
+    public delete(Request) -> Response
+
+
+
+
+

@@ -2,7 +2,7 @@
 import grpc
 
 from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
-import lib.paxos_pb2 as paxos__pb2
+import paxos_pb2 as paxos__pb2
 
 
 class PaxosStub(object):
@@ -19,10 +19,20 @@ class PaxosStub(object):
                 request_serializer=paxos__pb2.StartArgs.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
                 )
-        self.propose = channel.unary_unary(
-                '/Paxos/propose',
-                request_serializer=paxos__pb2.Data.SerializeToString,
+        self.finish = channel.unary_unary(
+                '/Paxos/finish',
+                request_serializer=paxos__pb2.FinishArgs.SerializeToString,
                 response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                )
+        self.max = channel.unary_unary(
+                '/Paxos/max',
+                request_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+                response_deserializer=paxos__pb2.Number.FromString,
+                )
+        self.min = channel.unary_unary(
+                '/Paxos/min',
+                request_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+                response_deserializer=paxos__pb2.Number.FromString,
                 )
         self.prepare = channel.unary_unary(
                 '/Paxos/prepare',
@@ -39,10 +49,10 @@ class PaxosStub(object):
                 request_serializer=paxos__pb2.DecideArgs.SerializeToString,
                 response_deserializer=paxos__pb2.DecideReply.FromString,
                 )
-        self.finish = channel.unary_unary(
-                '/Paxos/finish',
-                request_serializer=paxos__pb2.FinishArgs.SerializeToString,
-                response_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+        self.status = channel.unary_unary(
+                '/Paxos/status',
+                request_serializer=paxos__pb2.Number.SerializeToString,
+                response_deserializer=paxos__pb2.StatusReply.FromString,
                 )
 
 
@@ -55,7 +65,19 @@ class PaxosServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def propose(self, request, context):
+    def finish(self, request, context):
+        """Missing associated documentation comment in .proto file"""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def max(self, request, context):
+        """Missing associated documentation comment in .proto file"""
+        context.set_code(grpc.StatusCode.UNIMPLEMENTED)
+        context.set_details('Method not implemented!')
+        raise NotImplementedError('Method not implemented!')
+
+    def min(self, request, context):
         """Missing associated documentation comment in .proto file"""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -79,7 +101,7 @@ class PaxosServicer(object):
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def finish(self, request, context):
+    def status(self, request, context):
         """Missing associated documentation comment in .proto file"""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -93,10 +115,20 @@ def add_PaxosServicer_to_server(servicer, server):
                     request_deserializer=paxos__pb2.StartArgs.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
             ),
-            'propose': grpc.unary_unary_rpc_method_handler(
-                    servicer.propose,
-                    request_deserializer=paxos__pb2.Data.FromString,
+            'finish': grpc.unary_unary_rpc_method_handler(
+                    servicer.finish,
+                    request_deserializer=paxos__pb2.FinishArgs.FromString,
                     response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            ),
+            'max': grpc.unary_unary_rpc_method_handler(
+                    servicer.max,
+                    request_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                    response_serializer=paxos__pb2.Number.SerializeToString,
+            ),
+            'min': grpc.unary_unary_rpc_method_handler(
+                    servicer.min,
+                    request_deserializer=google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+                    response_serializer=paxos__pb2.Number.SerializeToString,
             ),
             'prepare': grpc.unary_unary_rpc_method_handler(
                     servicer.prepare,
@@ -113,10 +145,10 @@ def add_PaxosServicer_to_server(servicer, server):
                     request_deserializer=paxos__pb2.DecideArgs.FromString,
                     response_serializer=paxos__pb2.DecideReply.SerializeToString,
             ),
-            'finish': grpc.unary_unary_rpc_method_handler(
-                    servicer.finish,
-                    request_deserializer=paxos__pb2.FinishArgs.FromString,
-                    response_serializer=google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            'status': grpc.unary_unary_rpc_method_handler(
+                    servicer.status,
+                    request_deserializer=paxos__pb2.Number.FromString,
+                    response_serializer=paxos__pb2.StatusReply.SerializeToString,
             ),
     }
     generic_handler = grpc.method_handlers_generic_handler(
@@ -145,7 +177,7 @@ class Paxos(object):
             call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def propose(request,
+    def finish(request,
             target,
             options=(),
             channel_credentials=None,
@@ -154,9 +186,41 @@ class Paxos(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/Paxos/propose',
-            paxos__pb2.Data.SerializeToString,
+        return grpc.experimental.unary_unary(request, target, '/Paxos/finish',
+            paxos__pb2.FinishArgs.SerializeToString,
             google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+            options, channel_credentials,
+            call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def max(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/Paxos/max',
+            google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            paxos__pb2.Number.FromString,
+            options, channel_credentials,
+            call_credentials, compression, wait_for_ready, timeout, metadata)
+
+    @staticmethod
+    def min(request,
+            target,
+            options=(),
+            channel_credentials=None,
+            call_credentials=None,
+            compression=None,
+            wait_for_ready=None,
+            timeout=None,
+            metadata=None):
+        return grpc.experimental.unary_unary(request, target, '/Paxos/min',
+            google_dot_protobuf_dot_empty__pb2.Empty.SerializeToString,
+            paxos__pb2.Number.FromString,
             options, channel_credentials,
             call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -209,7 +273,7 @@ class Paxos(object):
             call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def finish(request,
+    def status(request,
             target,
             options=(),
             channel_credentials=None,
@@ -218,9 +282,9 @@ class Paxos(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/Paxos/finish',
-            paxos__pb2.FinishArgs.SerializeToString,
-            google_dot_protobuf_dot_empty__pb2.Empty.FromString,
+        return grpc.experimental.unary_unary(request, target, '/Paxos/status',
+            paxos__pb2.Number.SerializeToString,
+            paxos__pb2.StatusReply.FromString,
             options, channel_credentials,
             call_credentials, compression, wait_for_ready, timeout, metadata)
 
@@ -234,18 +298,18 @@ class KeyValueStoreStub(object):
         Args:
             channel: A grpc.Channel.
         """
-        self.getRequest = channel.unary_unary(
-                '/KeyValueStore/getRequest',
+        self.get = channel.unary_unary(
+                '/KeyValueStore/get',
                 request_serializer=paxos__pb2.Request.SerializeToString,
                 response_deserializer=paxos__pb2.Response.FromString,
                 )
-        self.putRequest = channel.unary_unary(
-                '/KeyValueStore/putRequest',
+        self.put = channel.unary_unary(
+                '/KeyValueStore/put',
                 request_serializer=paxos__pb2.Request.SerializeToString,
                 response_deserializer=paxos__pb2.Response.FromString,
                 )
-        self.deleteRequest = channel.unary_unary(
-                '/KeyValueStore/deleteRequest',
+        self.delete = channel.unary_unary(
+                '/KeyValueStore/delete',
                 request_serializer=paxos__pb2.Request.SerializeToString,
                 response_deserializer=paxos__pb2.Response.FromString,
                 )
@@ -254,19 +318,19 @@ class KeyValueStoreStub(object):
 class KeyValueStoreServicer(object):
     """Missing associated documentation comment in .proto file"""
 
-    def getRequest(self, request, context):
+    def get(self, request, context):
         """Missing associated documentation comment in .proto file"""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def putRequest(self, request, context):
+    def put(self, request, context):
         """Missing associated documentation comment in .proto file"""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
         raise NotImplementedError('Method not implemented!')
 
-    def deleteRequest(self, request, context):
+    def delete(self, request, context):
         """Missing associated documentation comment in .proto file"""
         context.set_code(grpc.StatusCode.UNIMPLEMENTED)
         context.set_details('Method not implemented!')
@@ -275,18 +339,18 @@ class KeyValueStoreServicer(object):
 
 def add_KeyValueStoreServicer_to_server(servicer, server):
     rpc_method_handlers = {
-            'getRequest': grpc.unary_unary_rpc_method_handler(
-                    servicer.getRequest,
+            'get': grpc.unary_unary_rpc_method_handler(
+                    servicer.get,
                     request_deserializer=paxos__pb2.Request.FromString,
                     response_serializer=paxos__pb2.Response.SerializeToString,
             ),
-            'putRequest': grpc.unary_unary_rpc_method_handler(
-                    servicer.putRequest,
+            'put': grpc.unary_unary_rpc_method_handler(
+                    servicer.put,
                     request_deserializer=paxos__pb2.Request.FromString,
                     response_serializer=paxos__pb2.Response.SerializeToString,
             ),
-            'deleteRequest': grpc.unary_unary_rpc_method_handler(
-                    servicer.deleteRequest,
+            'delete': grpc.unary_unary_rpc_method_handler(
+                    servicer.delete,
                     request_deserializer=paxos__pb2.Request.FromString,
                     response_serializer=paxos__pb2.Response.SerializeToString,
             ),
@@ -301,7 +365,7 @@ class KeyValueStore(object):
     """Missing associated documentation comment in .proto file"""
 
     @staticmethod
-    def getRequest(request,
+    def get(request,
             target,
             options=(),
             channel_credentials=None,
@@ -310,14 +374,14 @@ class KeyValueStore(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/KeyValueStore/getRequest',
+        return grpc.experimental.unary_unary(request, target, '/KeyValueStore/get',
             paxos__pb2.Request.SerializeToString,
             paxos__pb2.Response.FromString,
             options, channel_credentials,
             call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def putRequest(request,
+    def put(request,
             target,
             options=(),
             channel_credentials=None,
@@ -326,14 +390,14 @@ class KeyValueStore(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/KeyValueStore/putRequest',
+        return grpc.experimental.unary_unary(request, target, '/KeyValueStore/put',
             paxos__pb2.Request.SerializeToString,
             paxos__pb2.Response.FromString,
             options, channel_credentials,
             call_credentials, compression, wait_for_ready, timeout, metadata)
 
     @staticmethod
-    def deleteRequest(request,
+    def delete(request,
             target,
             options=(),
             channel_credentials=None,
@@ -342,7 +406,7 @@ class KeyValueStore(object):
             wait_for_ready=None,
             timeout=None,
             metadata=None):
-        return grpc.experimental.unary_unary(request, target, '/KeyValueStore/deleteRequest',
+        return grpc.experimental.unary_unary(request, target, '/KeyValueStore/delete',
             paxos__pb2.Request.SerializeToString,
             paxos__pb2.Response.FromString,
             options, channel_credentials,
