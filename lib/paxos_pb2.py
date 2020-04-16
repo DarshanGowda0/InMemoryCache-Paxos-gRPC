@@ -6,554 +6,520 @@ from google.protobuf import descriptor as _descriptor
 from google.protobuf import message as _message
 from google.protobuf import reflection as _reflection
 from google.protobuf import symbol_database as _symbol_database
+
 # @@protoc_insertion_point(imports)
 
 _sym_db = _symbol_database.Default()
 
-
 from google.protobuf import empty_pb2 as google_dot_protobuf_dot_empty__pb2
 
-
 DESCRIPTOR = _descriptor.FileDescriptor(
-  name='paxos.proto',
-  package='',
-  syntax='proto3',
-  serialized_options=None,
-  serialized_pb=b'\n\x0bpaxos.proto\x1a\x1bgoogle/protobuf/empty.proto\"\"\n\x04\x44\x61ta\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t\",\n\x0bPrepareArgs\x12\x0b\n\x03pid\x18\x01 \x01(\x03\x12\x10\n\x08proposal\x18\x02 \x01(\x03\"X\n\x0cPrepareReply\x12\x10\n\x08promised\x18\x01 \x01(\x03\x12\x18\n\x10\x61\x63\x63\x65ptedProposal\x18\x02 \x01(\x03\x12\x1c\n\racceptedValue\x18\x03 \x01(\x0b\x32\x05.Data\"A\n\nAcceptArgs\x12\x0b\n\x03pid\x18\x01 \x01(\x03\x12\x10\n\x08proposal\x18\x02 \x01(\x03\x12\x14\n\x05value\x18\x03 \x01(\x0b\x32\x05.Data\"\x1f\n\x0b\x41\x63\x63\x65ptReply\x12\x10\n\x08\x61\x63\x63\x65pted\x18\x01 \x01(\x08\"A\n\nDecideArgs\x12\x0b\n\x03pid\x18\x01 \x01(\x03\x12\x10\n\x08proposal\x18\x02 \x01(\x03\x12\x14\n\x05value\x18\x03 \x01(\x0b\x32\x05.Data\"\x1b\n\x0b\x44\x65\x63ideReply\x12\x0c\n\x04\x64one\x18\x01 \x01(\x03\")\n\x02Op\x12\n\n\x02op\x18\x01 \x01(\t\x12\x17\n\x08keyValue\x18\x02 \x01(\x0b\x32\x05.Data\".\n\tStartArgs\x12\x0b\n\x03pid\x18\x01 \x01(\x03\x12\x14\n\x05value\x18\x02 \x01(\x0b\x32\x05.Data\"\x19\n\nFinishArgs\x12\x0b\n\x03pid\x18\x01 \x01(\x03\"\x18\n\x06Number\x12\x0e\n\x06number\x18\x01 \x01(\x03\"3\n\x0bStatusReply\x12\x0e\n\x06status\x18\x01 \x01(\t\x12\x14\n\x05value\x18\x02 \x01(\x0b\x32\x05.Data\"/\n\x08Response\x12\x12\n\nstatusCode\x18\x01 \x01(\x05\x12\x0f\n\x07message\x18\x02 \x01(\t\"%\n\x07Request\x12\x0b\n\x03key\x18\x01 \x01(\t\x12\r\n\x05value\x18\x02 \x01(\t2\xd7\x02\n\x05Paxos\x12-\n\x05start\x12\n.StartArgs\x1a\x16.google.protobuf.Empty\"\x00\x12/\n\x06\x66inish\x12\x0b.FinishArgs\x1a\x16.google.protobuf.Empty\"\x00\x12(\n\x03max\x12\x16.google.protobuf.Empty\x1a\x07.Number\"\x00\x12(\n\x03min\x12\x16.google.protobuf.Empty\x1a\x07.Number\"\x00\x12(\n\x07prepare\x12\x0c.PrepareArgs\x1a\r.PrepareReply\"\x00\x12%\n\x06\x61\x63\x63\x65pt\x12\x0b.AcceptArgs\x1a\x0c.AcceptReply\"\x00\x12&\n\x07\x64\x65\x63ided\x12\x0b.DecideArgs\x1a\x0c.DecideReply\"\x00\x12!\n\x06status\x12\x07.Number\x1a\x0c.StatusReply\"\x00\x32l\n\rKeyValueStore\x12\x1c\n\x03get\x12\x08.Request\x1a\t.Response\"\x00\x12\x1c\n\x03put\x12\x08.Request\x1a\t.Response\"\x00\x12\x1f\n\x06\x64\x65lete\x12\x08.Request\x1a\t.Response\"\x00\x62\x06proto3'
-  ,
-  dependencies=[google_dot_protobuf_dot_empty__pb2.DESCRIPTOR,])
-
-
-
+    name='paxos.proto',
+    package='',
+    syntax='proto3',
+    serialized_options=None,
+    serialized_pb=b'\n\x0bpaxos.proto\x1a\x1bgoogle/protobuf/empty.proto\"=\n\x04\x44\x61ta\x12\x0c\n\x04type\x18\x01 \x01(\t\x12\x0b\n\x03key\x18\x02 \x01(\t\x12\r\n\x05value\x18\x03 \x01(\t\x12\x0b\n\x03uid\x18\x04 \x01(\t\",\n\x0bPrepareArgs\x12\x0b\n\x03pid\x18\x01 \x01(\x03\x12\x10\n\x08proposal\x18\x02 \x01(\x03\"X\n\x0cPrepareReply\x12\x10\n\x08promised\x18\x01 \x01(\x03\x12\x18\n\x10\x61\x63\x63\x65ptedProposal\x18\x02 \x01(\x03\x12\x1c\n\racceptedValue\x18\x03 \x01(\x0b\x32\x05.Data\"A\n\nAcceptArgs\x12\x0b\n\x03pid\x18\x01 \x01(\x03\x12\x10\n\x08proposal\x18\x02 \x01(\x03\x12\x14\n\x05value\x18\x03 \x01(\x0b\x32\x05.Data\"\x1f\n\x0b\x41\x63\x63\x65ptReply\x12\x10\n\x08\x61\x63\x63\x65pted\x18\x01 \x01(\x08\"A\n\nDecideArgs\x12\x0b\n\x03pid\x18\x01 \x01(\x03\x12\x10\n\x08proposal\x18\x02 \x01(\x03\x12\x14\n\x05value\x18\x03 \x01(\x0b\x32\x05.Data\"\x1b\n\x0b\x44\x65\x63ideReply\x12\x0c\n\x04\x64one\x18\x01 \x01(\x03\".\n\tStartArgs\x12\x0b\n\x03pid\x18\x01 \x01(\x03\x12\x14\n\x05value\x18\x02 \x01(\x0b\x32\x05.Data\"\x19\n\nFinishArgs\x12\x0b\n\x03pid\x18\x01 \x01(\x03\"\x18\n\x06Number\x12\x0e\n\x06number\x18\x01 \x01(\x03\"3\n\x0bStatusReply\x12\x0e\n\x06status\x18\x01 \x01(\t\x12\x14\n\x05value\x18\x02 \x01(\x0b\x32\x05.Data\"/\n\x08Response\x12\x12\n\nstatusCode\x18\x01 \x01(\x05\x12\x0f\n\x07message\x18\x02 \x01(\t\"2\n\x07Request\x12\x0b\n\x03uid\x18\x01 \x01(\t\x12\x0b\n\x03key\x18\x02 \x01(\t\x12\r\n\x05value\x18\x03 \x01(\t2\xd7\x02\n\x05Paxos\x12-\n\x05start\x12\n.StartArgs\x1a\x16.google.protobuf.Empty\"\x00\x12/\n\x06\x66inish\x12\x0b.FinishArgs\x1a\x16.google.protobuf.Empty\"\x00\x12(\n\x03max\x12\x16.google.protobuf.Empty\x1a\x07.Number\"\x00\x12(\n\x03min\x12\x16.google.protobuf.Empty\x1a\x07.Number\"\x00\x12(\n\x07prepare\x12\x0c.PrepareArgs\x1a\r.PrepareReply\"\x00\x12%\n\x06\x61\x63\x63\x65pt\x12\x0b.AcceptArgs\x1a\x0c.AcceptReply\"\x00\x12&\n\x07\x64\x65\x63ided\x12\x0b.DecideArgs\x1a\x0c.DecideReply\"\x00\x12!\n\x06status\x12\x07.Number\x1a\x0c.StatusReply\"\x00\x32l\n\rKeyValueStore\x12\x1c\n\x03get\x12\x08.Request\x1a\t.Response\"\x00\x12\x1c\n\x03put\x12\x08.Request\x1a\t.Response\"\x00\x12\x1f\n\x06\x64\x65lete\x12\x08.Request\x1a\t.Response\"\x00\x62\x06proto3'
+    ,
+    dependencies=[google_dot_protobuf_dot_empty__pb2.DESCRIPTOR, ])
 
 _DATA = _descriptor.Descriptor(
-  name='Data',
-  full_name='Data',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='key', full_name='Data.key', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='value', full_name='Data.value', index=1,
-      number=2, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=44,
-  serialized_end=78,
+    name='Data',
+    full_name='Data',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='type', full_name='Data.type', index=0,
+            number=1, type=9, cpp_type=9, label=1,
+            has_default_value=False, default_value=b"".decode('utf-8'),
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            serialized_options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='key', full_name='Data.key', index=1,
+            number=2, type=9, cpp_type=9, label=1,
+            has_default_value=False, default_value=b"".decode('utf-8'),
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            serialized_options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='value', full_name='Data.value', index=2,
+            number=3, type=9, cpp_type=9, label=1,
+            has_default_value=False, default_value=b"".decode('utf-8'),
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            serialized_options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='uid', full_name='Data.uid', index=3,
+            number=4, type=9, cpp_type=9, label=1,
+            has_default_value=False, default_value=b"".decode('utf-8'),
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            serialized_options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    serialized_options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=44,
+    serialized_end=105,
 )
-
 
 _PREPAREARGS = _descriptor.Descriptor(
-  name='PrepareArgs',
-  full_name='PrepareArgs',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='pid', full_name='PrepareArgs.pid', index=0,
-      number=1, type=3, cpp_type=2, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='proposal', full_name='PrepareArgs.proposal', index=1,
-      number=2, type=3, cpp_type=2, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=80,
-  serialized_end=124,
+    name='PrepareArgs',
+    full_name='PrepareArgs',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='pid', full_name='PrepareArgs.pid', index=0,
+            number=1, type=3, cpp_type=2, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            serialized_options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='proposal', full_name='PrepareArgs.proposal', index=1,
+            number=2, type=3, cpp_type=2, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            serialized_options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    serialized_options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=107,
+    serialized_end=151,
 )
-
 
 _PREPAREREPLY = _descriptor.Descriptor(
-  name='PrepareReply',
-  full_name='PrepareReply',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='promised', full_name='PrepareReply.promised', index=0,
-      number=1, type=3, cpp_type=2, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='acceptedProposal', full_name='PrepareReply.acceptedProposal', index=1,
-      number=2, type=3, cpp_type=2, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='acceptedValue', full_name='PrepareReply.acceptedValue', index=2,
-      number=3, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=126,
-  serialized_end=214,
+    name='PrepareReply',
+    full_name='PrepareReply',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='promised', full_name='PrepareReply.promised', index=0,
+            number=1, type=3, cpp_type=2, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            serialized_options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='acceptedProposal', full_name='PrepareReply.acceptedProposal', index=1,
+            number=2, type=3, cpp_type=2, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            serialized_options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='acceptedValue', full_name='PrepareReply.acceptedValue', index=2,
+            number=3, type=11, cpp_type=10, label=1,
+            has_default_value=False, default_value=None,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            serialized_options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    serialized_options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=153,
+    serialized_end=241,
 )
-
 
 _ACCEPTARGS = _descriptor.Descriptor(
-  name='AcceptArgs',
-  full_name='AcceptArgs',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='pid', full_name='AcceptArgs.pid', index=0,
-      number=1, type=3, cpp_type=2, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='proposal', full_name='AcceptArgs.proposal', index=1,
-      number=2, type=3, cpp_type=2, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='value', full_name='AcceptArgs.value', index=2,
-      number=3, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=216,
-  serialized_end=281,
+    name='AcceptArgs',
+    full_name='AcceptArgs',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='pid', full_name='AcceptArgs.pid', index=0,
+            number=1, type=3, cpp_type=2, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            serialized_options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='proposal', full_name='AcceptArgs.proposal', index=1,
+            number=2, type=3, cpp_type=2, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            serialized_options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='value', full_name='AcceptArgs.value', index=2,
+            number=3, type=11, cpp_type=10, label=1,
+            has_default_value=False, default_value=None,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            serialized_options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    serialized_options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=243,
+    serialized_end=308,
 )
-
 
 _ACCEPTREPLY = _descriptor.Descriptor(
-  name='AcceptReply',
-  full_name='AcceptReply',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='accepted', full_name='AcceptReply.accepted', index=0,
-      number=1, type=8, cpp_type=7, label=1,
-      has_default_value=False, default_value=False,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=283,
-  serialized_end=314,
+    name='AcceptReply',
+    full_name='AcceptReply',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='accepted', full_name='AcceptReply.accepted', index=0,
+            number=1, type=8, cpp_type=7, label=1,
+            has_default_value=False, default_value=False,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            serialized_options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    serialized_options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=310,
+    serialized_end=341,
 )
-
 
 _DECIDEARGS = _descriptor.Descriptor(
-  name='DecideArgs',
-  full_name='DecideArgs',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='pid', full_name='DecideArgs.pid', index=0,
-      number=1, type=3, cpp_type=2, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='proposal', full_name='DecideArgs.proposal', index=1,
-      number=2, type=3, cpp_type=2, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='value', full_name='DecideArgs.value', index=2,
-      number=3, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=316,
-  serialized_end=381,
+    name='DecideArgs',
+    full_name='DecideArgs',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='pid', full_name='DecideArgs.pid', index=0,
+            number=1, type=3, cpp_type=2, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            serialized_options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='proposal', full_name='DecideArgs.proposal', index=1,
+            number=2, type=3, cpp_type=2, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            serialized_options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='value', full_name='DecideArgs.value', index=2,
+            number=3, type=11, cpp_type=10, label=1,
+            has_default_value=False, default_value=None,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            serialized_options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    serialized_options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=343,
+    serialized_end=408,
 )
-
 
 _DECIDEREPLY = _descriptor.Descriptor(
-  name='DecideReply',
-  full_name='DecideReply',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='done', full_name='DecideReply.done', index=0,
-      number=1, type=3, cpp_type=2, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=383,
-  serialized_end=410,
+    name='DecideReply',
+    full_name='DecideReply',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='done', full_name='DecideReply.done', index=0,
+            number=1, type=3, cpp_type=2, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            serialized_options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    serialized_options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=410,
+    serialized_end=437,
 )
-
-
-_OP = _descriptor.Descriptor(
-  name='Op',
-  full_name='Op',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='op', full_name='Op.op', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='keyValue', full_name='Op.keyValue', index=1,
-      number=2, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=412,
-  serialized_end=453,
-)
-
 
 _STARTARGS = _descriptor.Descriptor(
-  name='StartArgs',
-  full_name='StartArgs',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='pid', full_name='StartArgs.pid', index=0,
-      number=1, type=3, cpp_type=2, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='value', full_name='StartArgs.value', index=1,
-      number=2, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=455,
-  serialized_end=501,
+    name='StartArgs',
+    full_name='StartArgs',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='pid', full_name='StartArgs.pid', index=0,
+            number=1, type=3, cpp_type=2, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            serialized_options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='value', full_name='StartArgs.value', index=1,
+            number=2, type=11, cpp_type=10, label=1,
+            has_default_value=False, default_value=None,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            serialized_options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    serialized_options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=439,
+    serialized_end=485,
 )
-
 
 _FINISHARGS = _descriptor.Descriptor(
-  name='FinishArgs',
-  full_name='FinishArgs',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='pid', full_name='FinishArgs.pid', index=0,
-      number=1, type=3, cpp_type=2, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=503,
-  serialized_end=528,
+    name='FinishArgs',
+    full_name='FinishArgs',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='pid', full_name='FinishArgs.pid', index=0,
+            number=1, type=3, cpp_type=2, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            serialized_options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    serialized_options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=487,
+    serialized_end=512,
 )
-
 
 _NUMBER = _descriptor.Descriptor(
-  name='Number',
-  full_name='Number',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='number', full_name='Number.number', index=0,
-      number=1, type=3, cpp_type=2, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=530,
-  serialized_end=554,
+    name='Number',
+    full_name='Number',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='number', full_name='Number.number', index=0,
+            number=1, type=3, cpp_type=2, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            serialized_options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    serialized_options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=514,
+    serialized_end=538,
 )
-
 
 _STATUSREPLY = _descriptor.Descriptor(
-  name='StatusReply',
-  full_name='StatusReply',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='status', full_name='StatusReply.status', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='value', full_name='StatusReply.value', index=1,
-      number=2, type=11, cpp_type=10, label=1,
-      has_default_value=False, default_value=None,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=556,
-  serialized_end=607,
+    name='StatusReply',
+    full_name='StatusReply',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='status', full_name='StatusReply.status', index=0,
+            number=1, type=9, cpp_type=9, label=1,
+            has_default_value=False, default_value=b"".decode('utf-8'),
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            serialized_options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='value', full_name='StatusReply.value', index=1,
+            number=2, type=11, cpp_type=10, label=1,
+            has_default_value=False, default_value=None,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            serialized_options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    serialized_options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=540,
+    serialized_end=591,
 )
-
 
 _RESPONSE = _descriptor.Descriptor(
-  name='Response',
-  full_name='Response',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='statusCode', full_name='Response.statusCode', index=0,
-      number=1, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='message', full_name='Response.message', index=1,
-      number=2, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=609,
-  serialized_end=656,
+    name='Response',
+    full_name='Response',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='statusCode', full_name='Response.statusCode', index=0,
+            number=1, type=5, cpp_type=1, label=1,
+            has_default_value=False, default_value=0,
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            serialized_options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='message', full_name='Response.message', index=1,
+            number=2, type=9, cpp_type=9, label=1,
+            has_default_value=False, default_value=b"".decode('utf-8'),
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            serialized_options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    serialized_options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=593,
+    serialized_end=640,
 )
 
-
 _REQUEST = _descriptor.Descriptor(
-  name='Request',
-  full_name='Request',
-  filename=None,
-  file=DESCRIPTOR,
-  containing_type=None,
-  fields=[
-    _descriptor.FieldDescriptor(
-      name='key', full_name='Request.key', index=0,
-      number=1, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-    _descriptor.FieldDescriptor(
-      name='value', full_name='Request.value', index=1,
-      number=2, type=9, cpp_type=9, label=1,
-      has_default_value=False, default_value=b"".decode('utf-8'),
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      serialized_options=None, file=DESCRIPTOR),
-  ],
-  extensions=[
-  ],
-  nested_types=[],
-  enum_types=[
-  ],
-  serialized_options=None,
-  is_extendable=False,
-  syntax='proto3',
-  extension_ranges=[],
-  oneofs=[
-  ],
-  serialized_start=658,
-  serialized_end=695,
+    name='Request',
+    full_name='Request',
+    filename=None,
+    file=DESCRIPTOR,
+    containing_type=None,
+    fields=[
+        _descriptor.FieldDescriptor(
+            name='uid', full_name='Request.uid', index=0,
+            number=1, type=9, cpp_type=9, label=1,
+            has_default_value=False, default_value=b"".decode('utf-8'),
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            serialized_options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='key', full_name='Request.key', index=1,
+            number=2, type=9, cpp_type=9, label=1,
+            has_default_value=False, default_value=b"".decode('utf-8'),
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            serialized_options=None, file=DESCRIPTOR),
+        _descriptor.FieldDescriptor(
+            name='value', full_name='Request.value', index=2,
+            number=3, type=9, cpp_type=9, label=1,
+            has_default_value=False, default_value=b"".decode('utf-8'),
+            message_type=None, enum_type=None, containing_type=None,
+            is_extension=False, extension_scope=None,
+            serialized_options=None, file=DESCRIPTOR),
+    ],
+    extensions=[
+    ],
+    nested_types=[],
+    enum_types=[
+    ],
+    serialized_options=None,
+    is_extendable=False,
+    syntax='proto3',
+    extension_ranges=[],
+    oneofs=[
+    ],
+    serialized_start=642,
+    serialized_end=692,
 )
 
 _PREPAREREPLY.fields_by_name['acceptedValue'].message_type = _DATA
 _ACCEPTARGS.fields_by_name['value'].message_type = _DATA
 _DECIDEARGS.fields_by_name['value'].message_type = _DATA
-_OP.fields_by_name['keyValue'].message_type = _DATA
 _STARTARGS.fields_by_name['value'].message_type = _DATA
 _STATUSREPLY.fields_by_name['value'].message_type = _DATA
 DESCRIPTOR.message_types_by_name['Data'] = _DATA
@@ -563,7 +529,6 @@ DESCRIPTOR.message_types_by_name['AcceptArgs'] = _ACCEPTARGS
 DESCRIPTOR.message_types_by_name['AcceptReply'] = _ACCEPTREPLY
 DESCRIPTOR.message_types_by_name['DecideArgs'] = _DECIDEARGS
 DESCRIPTOR.message_types_by_name['DecideReply'] = _DECIDEREPLY
-DESCRIPTOR.message_types_by_name['Op'] = _OP
 DESCRIPTOR.message_types_by_name['StartArgs'] = _STARTARGS
 DESCRIPTOR.message_types_by_name['FinishArgs'] = _FINISHARGS
 DESCRIPTOR.message_types_by_name['Number'] = _NUMBER
@@ -573,229 +538,219 @@ DESCRIPTOR.message_types_by_name['Request'] = _REQUEST
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 Data = _reflection.GeneratedProtocolMessageType('Data', (_message.Message,), {
-  'DESCRIPTOR' : _DATA,
-  '__module__' : 'paxos_pb2'
-  # @@protoc_insertion_point(class_scope:Data)
-  })
+    'DESCRIPTOR': _DATA,
+    '__module__': 'paxos_pb2'
+    # @@protoc_insertion_point(class_scope:Data)
+})
 _sym_db.RegisterMessage(Data)
 
 PrepareArgs = _reflection.GeneratedProtocolMessageType('PrepareArgs', (_message.Message,), {
-  'DESCRIPTOR' : _PREPAREARGS,
-  '__module__' : 'paxos_pb2'
-  # @@protoc_insertion_point(class_scope:PrepareArgs)
-  })
+    'DESCRIPTOR': _PREPAREARGS,
+    '__module__': 'paxos_pb2'
+    # @@protoc_insertion_point(class_scope:PrepareArgs)
+})
 _sym_db.RegisterMessage(PrepareArgs)
 
 PrepareReply = _reflection.GeneratedProtocolMessageType('PrepareReply', (_message.Message,), {
-  'DESCRIPTOR' : _PREPAREREPLY,
-  '__module__' : 'paxos_pb2'
-  # @@protoc_insertion_point(class_scope:PrepareReply)
-  })
+    'DESCRIPTOR': _PREPAREREPLY,
+    '__module__': 'paxos_pb2'
+    # @@protoc_insertion_point(class_scope:PrepareReply)
+})
 _sym_db.RegisterMessage(PrepareReply)
 
 AcceptArgs = _reflection.GeneratedProtocolMessageType('AcceptArgs', (_message.Message,), {
-  'DESCRIPTOR' : _ACCEPTARGS,
-  '__module__' : 'paxos_pb2'
-  # @@protoc_insertion_point(class_scope:AcceptArgs)
-  })
+    'DESCRIPTOR': _ACCEPTARGS,
+    '__module__': 'paxos_pb2'
+    # @@protoc_insertion_point(class_scope:AcceptArgs)
+})
 _sym_db.RegisterMessage(AcceptArgs)
 
 AcceptReply = _reflection.GeneratedProtocolMessageType('AcceptReply', (_message.Message,), {
-  'DESCRIPTOR' : _ACCEPTREPLY,
-  '__module__' : 'paxos_pb2'
-  # @@protoc_insertion_point(class_scope:AcceptReply)
-  })
+    'DESCRIPTOR': _ACCEPTREPLY,
+    '__module__': 'paxos_pb2'
+    # @@protoc_insertion_point(class_scope:AcceptReply)
+})
 _sym_db.RegisterMessage(AcceptReply)
 
 DecideArgs = _reflection.GeneratedProtocolMessageType('DecideArgs', (_message.Message,), {
-  'DESCRIPTOR' : _DECIDEARGS,
-  '__module__' : 'paxos_pb2'
-  # @@protoc_insertion_point(class_scope:DecideArgs)
-  })
+    'DESCRIPTOR': _DECIDEARGS,
+    '__module__': 'paxos_pb2'
+    # @@protoc_insertion_point(class_scope:DecideArgs)
+})
 _sym_db.RegisterMessage(DecideArgs)
 
 DecideReply = _reflection.GeneratedProtocolMessageType('DecideReply', (_message.Message,), {
-  'DESCRIPTOR' : _DECIDEREPLY,
-  '__module__' : 'paxos_pb2'
-  # @@protoc_insertion_point(class_scope:DecideReply)
-  })
+    'DESCRIPTOR': _DECIDEREPLY,
+    '__module__': 'paxos_pb2'
+    # @@protoc_insertion_point(class_scope:DecideReply)
+})
 _sym_db.RegisterMessage(DecideReply)
 
-Op = _reflection.GeneratedProtocolMessageType('Op', (_message.Message,), {
-  'DESCRIPTOR' : _OP,
-  '__module__' : 'paxos_pb2'
-  # @@protoc_insertion_point(class_scope:Op)
-  })
-_sym_db.RegisterMessage(Op)
-
 StartArgs = _reflection.GeneratedProtocolMessageType('StartArgs', (_message.Message,), {
-  'DESCRIPTOR' : _STARTARGS,
-  '__module__' : 'paxos_pb2'
-  # @@protoc_insertion_point(class_scope:StartArgs)
-  })
+    'DESCRIPTOR': _STARTARGS,
+    '__module__': 'paxos_pb2'
+    # @@protoc_insertion_point(class_scope:StartArgs)
+})
 _sym_db.RegisterMessage(StartArgs)
 
 FinishArgs = _reflection.GeneratedProtocolMessageType('FinishArgs', (_message.Message,), {
-  'DESCRIPTOR' : _FINISHARGS,
-  '__module__' : 'paxos_pb2'
-  # @@protoc_insertion_point(class_scope:FinishArgs)
-  })
+    'DESCRIPTOR': _FINISHARGS,
+    '__module__': 'paxos_pb2'
+    # @@protoc_insertion_point(class_scope:FinishArgs)
+})
 _sym_db.RegisterMessage(FinishArgs)
 
 Number = _reflection.GeneratedProtocolMessageType('Number', (_message.Message,), {
-  'DESCRIPTOR' : _NUMBER,
-  '__module__' : 'paxos_pb2'
-  # @@protoc_insertion_point(class_scope:Number)
-  })
+    'DESCRIPTOR': _NUMBER,
+    '__module__': 'paxos_pb2'
+    # @@protoc_insertion_point(class_scope:Number)
+})
 _sym_db.RegisterMessage(Number)
 
 StatusReply = _reflection.GeneratedProtocolMessageType('StatusReply', (_message.Message,), {
-  'DESCRIPTOR' : _STATUSREPLY,
-  '__module__' : 'paxos_pb2'
-  # @@protoc_insertion_point(class_scope:StatusReply)
-  })
+    'DESCRIPTOR': _STATUSREPLY,
+    '__module__': 'paxos_pb2'
+    # @@protoc_insertion_point(class_scope:StatusReply)
+})
 _sym_db.RegisterMessage(StatusReply)
 
 Response = _reflection.GeneratedProtocolMessageType('Response', (_message.Message,), {
-  'DESCRIPTOR' : _RESPONSE,
-  '__module__' : 'paxos_pb2'
-  # @@protoc_insertion_point(class_scope:Response)
-  })
+    'DESCRIPTOR': _RESPONSE,
+    '__module__': 'paxos_pb2'
+    # @@protoc_insertion_point(class_scope:Response)
+})
 _sym_db.RegisterMessage(Response)
 
 Request = _reflection.GeneratedProtocolMessageType('Request', (_message.Message,), {
-  'DESCRIPTOR' : _REQUEST,
-  '__module__' : 'paxos_pb2'
-  # @@protoc_insertion_point(class_scope:Request)
-  })
+    'DESCRIPTOR': _REQUEST,
+    '__module__': 'paxos_pb2'
+    # @@protoc_insertion_point(class_scope:Request)
+})
 _sym_db.RegisterMessage(Request)
 
-
-
 _PAXOS = _descriptor.ServiceDescriptor(
-  name='Paxos',
-  full_name='Paxos',
-  file=DESCRIPTOR,
-  index=0,
-  serialized_options=None,
-  serialized_start=698,
-  serialized_end=1041,
-  methods=[
-  _descriptor.MethodDescriptor(
-    name='start',
-    full_name='Paxos.start',
+    name='Paxos',
+    full_name='Paxos',
+    file=DESCRIPTOR,
     index=0,
-    containing_service=None,
-    input_type=_STARTARGS,
-    output_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
     serialized_options=None,
-  ),
-  _descriptor.MethodDescriptor(
-    name='finish',
-    full_name='Paxos.finish',
-    index=1,
-    containing_service=None,
-    input_type=_FINISHARGS,
-    output_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
-    serialized_options=None,
-  ),
-  _descriptor.MethodDescriptor(
-    name='max',
-    full_name='Paxos.max',
-    index=2,
-    containing_service=None,
-    input_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
-    output_type=_NUMBER,
-    serialized_options=None,
-  ),
-  _descriptor.MethodDescriptor(
-    name='min',
-    full_name='Paxos.min',
-    index=3,
-    containing_service=None,
-    input_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
-    output_type=_NUMBER,
-    serialized_options=None,
-  ),
-  _descriptor.MethodDescriptor(
-    name='prepare',
-    full_name='Paxos.prepare',
-    index=4,
-    containing_service=None,
-    input_type=_PREPAREARGS,
-    output_type=_PREPAREREPLY,
-    serialized_options=None,
-  ),
-  _descriptor.MethodDescriptor(
-    name='accept',
-    full_name='Paxos.accept',
-    index=5,
-    containing_service=None,
-    input_type=_ACCEPTARGS,
-    output_type=_ACCEPTREPLY,
-    serialized_options=None,
-  ),
-  _descriptor.MethodDescriptor(
-    name='decided',
-    full_name='Paxos.decided',
-    index=6,
-    containing_service=None,
-    input_type=_DECIDEARGS,
-    output_type=_DECIDEREPLY,
-    serialized_options=None,
-  ),
-  _descriptor.MethodDescriptor(
-    name='status',
-    full_name='Paxos.status',
-    index=7,
-    containing_service=None,
-    input_type=_NUMBER,
-    output_type=_STATUSREPLY,
-    serialized_options=None,
-  ),
-])
+    serialized_start=695,
+    serialized_end=1038,
+    methods=[
+        _descriptor.MethodDescriptor(
+            name='start',
+            full_name='Paxos.start',
+            index=0,
+            containing_service=None,
+            input_type=_STARTARGS,
+            output_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
+            serialized_options=None,
+        ),
+        _descriptor.MethodDescriptor(
+            name='finish',
+            full_name='Paxos.finish',
+            index=1,
+            containing_service=None,
+            input_type=_FINISHARGS,
+            output_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
+            serialized_options=None,
+        ),
+        _descriptor.MethodDescriptor(
+            name='max',
+            full_name='Paxos.max',
+            index=2,
+            containing_service=None,
+            input_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
+            output_type=_NUMBER,
+            serialized_options=None,
+        ),
+        _descriptor.MethodDescriptor(
+            name='min',
+            full_name='Paxos.min',
+            index=3,
+            containing_service=None,
+            input_type=google_dot_protobuf_dot_empty__pb2._EMPTY,
+            output_type=_NUMBER,
+            serialized_options=None,
+        ),
+        _descriptor.MethodDescriptor(
+            name='prepare',
+            full_name='Paxos.prepare',
+            index=4,
+            containing_service=None,
+            input_type=_PREPAREARGS,
+            output_type=_PREPAREREPLY,
+            serialized_options=None,
+        ),
+        _descriptor.MethodDescriptor(
+            name='accept',
+            full_name='Paxos.accept',
+            index=5,
+            containing_service=None,
+            input_type=_ACCEPTARGS,
+            output_type=_ACCEPTREPLY,
+            serialized_options=None,
+        ),
+        _descriptor.MethodDescriptor(
+            name='decided',
+            full_name='Paxos.decided',
+            index=6,
+            containing_service=None,
+            input_type=_DECIDEARGS,
+            output_type=_DECIDEREPLY,
+            serialized_options=None,
+        ),
+        _descriptor.MethodDescriptor(
+            name='status',
+            full_name='Paxos.status',
+            index=7,
+            containing_service=None,
+            input_type=_NUMBER,
+            output_type=_STATUSREPLY,
+            serialized_options=None,
+        ),
+    ])
 _sym_db.RegisterServiceDescriptor(_PAXOS)
 
 DESCRIPTOR.services_by_name['Paxos'] = _PAXOS
 
-
 _KEYVALUESTORE = _descriptor.ServiceDescriptor(
-  name='KeyValueStore',
-  full_name='KeyValueStore',
-  file=DESCRIPTOR,
-  index=1,
-  serialized_options=None,
-  serialized_start=1043,
-  serialized_end=1151,
-  methods=[
-  _descriptor.MethodDescriptor(
-    name='get',
-    full_name='KeyValueStore.get',
-    index=0,
-    containing_service=None,
-    input_type=_REQUEST,
-    output_type=_RESPONSE,
-    serialized_options=None,
-  ),
-  _descriptor.MethodDescriptor(
-    name='put',
-    full_name='KeyValueStore.put',
+    name='KeyValueStore',
+    full_name='KeyValueStore',
+    file=DESCRIPTOR,
     index=1,
-    containing_service=None,
-    input_type=_REQUEST,
-    output_type=_RESPONSE,
     serialized_options=None,
-  ),
-  _descriptor.MethodDescriptor(
-    name='delete',
-    full_name='KeyValueStore.delete',
-    index=2,
-    containing_service=None,
-    input_type=_REQUEST,
-    output_type=_RESPONSE,
-    serialized_options=None,
-  ),
-])
+    serialized_start=1040,
+    serialized_end=1148,
+    methods=[
+        _descriptor.MethodDescriptor(
+            name='get',
+            full_name='KeyValueStore.get',
+            index=0,
+            containing_service=None,
+            input_type=_REQUEST,
+            output_type=_RESPONSE,
+            serialized_options=None,
+        ),
+        _descriptor.MethodDescriptor(
+            name='put',
+            full_name='KeyValueStore.put',
+            index=1,
+            containing_service=None,
+            input_type=_REQUEST,
+            output_type=_RESPONSE,
+            serialized_options=None,
+        ),
+        _descriptor.MethodDescriptor(
+            name='delete',
+            full_name='KeyValueStore.delete',
+            index=2,
+            containing_service=None,
+            input_type=_REQUEST,
+            output_type=_RESPONSE,
+            serialized_options=None,
+        ),
+    ])
 _sym_db.RegisterServiceDescriptor(_KEYVALUESTORE)
 
 DESCRIPTOR.services_by_name['KeyValueStore'] = _KEYVALUESTORE
