@@ -11,18 +11,18 @@ message Data {
 
 message PrepareArgs {
     int64 pid = 1;
-    int64 proposal = 2;
+    float proposal = 2;
 }
 
 message PrepareReply {
-    int64 promised = 1;
-    int64 acceptedProposal = 2;
+    float promised = 1;
+    float acceptedProposal = 2;
     Data acceptedValue = 3;
 }
 
 message AcceptArgs {
     int64 pid = 1;
-    int64 proposal = 2;
+    float proposal = 2;
     Data value = 3;
 }
 
@@ -32,7 +32,7 @@ message AcceptReply {
 
 message DecideArgs {
     int64 pid = 1;
-    int64 proposal = 2;
+    float proposal = 2;
     Data value = 3;
 }
 
@@ -59,7 +59,7 @@ message Number {
 }
 
 message StatusReply {
-    string status = 1;
+    int64 status = 1;
     Data value = 2;
 }
 

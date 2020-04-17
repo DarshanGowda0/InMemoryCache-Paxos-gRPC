@@ -18,7 +18,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
     package='',
     syntax='proto3',
     serialized_options=None,
-    serialized_pb=b'\n\x0bpaxos.proto\x1a\x1bgoogle/protobuf/empty.proto\"=\n\x04\x44\x61ta\x12\x0c\n\x04type\x18\x01 \x01(\t\x12\x0b\n\x03key\x18\x02 \x01(\t\x12\r\n\x05value\x18\x03 \x01(\t\x12\x0b\n\x03uid\x18\x04 \x01(\t\",\n\x0bPrepareArgs\x12\x0b\n\x03pid\x18\x01 \x01(\x03\x12\x10\n\x08proposal\x18\x02 \x01(\x03\"X\n\x0cPrepareReply\x12\x10\n\x08promised\x18\x01 \x01(\x03\x12\x18\n\x10\x61\x63\x63\x65ptedProposal\x18\x02 \x01(\x03\x12\x1c\n\racceptedValue\x18\x03 \x01(\x0b\x32\x05.Data\"A\n\nAcceptArgs\x12\x0b\n\x03pid\x18\x01 \x01(\x03\x12\x10\n\x08proposal\x18\x02 \x01(\x03\x12\x14\n\x05value\x18\x03 \x01(\x0b\x32\x05.Data\"\x1f\n\x0b\x41\x63\x63\x65ptReply\x12\x10\n\x08\x61\x63\x63\x65pted\x18\x01 \x01(\x08\"A\n\nDecideArgs\x12\x0b\n\x03pid\x18\x01 \x01(\x03\x12\x10\n\x08proposal\x18\x02 \x01(\x03\x12\x14\n\x05value\x18\x03 \x01(\x0b\x32\x05.Data\"\x1b\n\x0b\x44\x65\x63ideReply\x12\x0c\n\x04\x64one\x18\x01 \x01(\x03\".\n\tStartArgs\x12\x0b\n\x03pid\x18\x01 \x01(\x03\x12\x14\n\x05value\x18\x02 \x01(\x0b\x32\x05.Data\"\x19\n\nFinishArgs\x12\x0b\n\x03pid\x18\x01 \x01(\x03\"\x18\n\x06Number\x12\x0e\n\x06number\x18\x01 \x01(\x03\"3\n\x0bStatusReply\x12\x0e\n\x06status\x18\x01 \x01(\t\x12\x14\n\x05value\x18\x02 \x01(\x0b\x32\x05.Data\"/\n\x08Response\x12\x12\n\nstatusCode\x18\x01 \x01(\x05\x12\x0f\n\x07message\x18\x02 \x01(\t\"2\n\x07Request\x12\x0b\n\x03uid\x18\x01 \x01(\t\x12\x0b\n\x03key\x18\x02 \x01(\t\x12\r\n\x05value\x18\x03 \x01(\t2\xd7\x02\n\x05Paxos\x12-\n\x05start\x12\n.StartArgs\x1a\x16.google.protobuf.Empty\"\x00\x12/\n\x06\x66inish\x12\x0b.FinishArgs\x1a\x16.google.protobuf.Empty\"\x00\x12(\n\x03max\x12\x16.google.protobuf.Empty\x1a\x07.Number\"\x00\x12(\n\x03min\x12\x16.google.protobuf.Empty\x1a\x07.Number\"\x00\x12(\n\x07prepare\x12\x0c.PrepareArgs\x1a\r.PrepareReply\"\x00\x12%\n\x06\x61\x63\x63\x65pt\x12\x0b.AcceptArgs\x1a\x0c.AcceptReply\"\x00\x12&\n\x07\x64\x65\x63ided\x12\x0b.DecideArgs\x1a\x0c.DecideReply\"\x00\x12!\n\x06status\x12\x07.Number\x1a\x0c.StatusReply\"\x00\x32l\n\rKeyValueStore\x12\x1c\n\x03get\x12\x08.Request\x1a\t.Response\"\x00\x12\x1c\n\x03put\x12\x08.Request\x1a\t.Response\"\x00\x12\x1f\n\x06\x64\x65lete\x12\x08.Request\x1a\t.Response\"\x00\x62\x06proto3'
+    serialized_pb=b'\n\x0bpaxos.proto\x1a\x1bgoogle/protobuf/empty.proto\"=\n\x04\x44\x61ta\x12\x0c\n\x04type\x18\x01 \x01(\t\x12\x0b\n\x03key\x18\x02 \x01(\t\x12\r\n\x05value\x18\x03 \x01(\t\x12\x0b\n\x03uid\x18\x04 \x01(\t\",\n\x0bPrepareArgs\x12\x0b\n\x03pid\x18\x01 \x01(\x03\x12\x10\n\x08proposal\x18\x02 \x01(\x02\"X\n\x0cPrepareReply\x12\x10\n\x08promised\x18\x01 \x01(\x02\x12\x18\n\x10\x61\x63\x63\x65ptedProposal\x18\x02 \x01(\x02\x12\x1c\n\racceptedValue\x18\x03 \x01(\x0b\x32\x05.Data\"A\n\nAcceptArgs\x12\x0b\n\x03pid\x18\x01 \x01(\x03\x12\x10\n\x08proposal\x18\x02 \x01(\x02\x12\x14\n\x05value\x18\x03 \x01(\x0b\x32\x05.Data\"\x1f\n\x0b\x41\x63\x63\x65ptReply\x12\x10\n\x08\x61\x63\x63\x65pted\x18\x01 \x01(\x08\"A\n\nDecideArgs\x12\x0b\n\x03pid\x18\x01 \x01(\x03\x12\x10\n\x08proposal\x18\x02 \x01(\x02\x12\x14\n\x05value\x18\x03 \x01(\x0b\x32\x05.Data\"\x1b\n\x0b\x44\x65\x63ideReply\x12\x0c\n\x04\x64one\x18\x01 \x01(\x03\".\n\tStartArgs\x12\x0b\n\x03pid\x18\x01 \x01(\x03\x12\x14\n\x05value\x18\x02 \x01(\x0b\x32\x05.Data\"\x19\n\nFinishArgs\x12\x0b\n\x03pid\x18\x01 \x01(\x03\"\x18\n\x06Number\x12\x0e\n\x06number\x18\x01 \x01(\x03\"3\n\x0bStatusReply\x12\x0e\n\x06status\x18\x01 \x01(\x03\x12\x14\n\x05value\x18\x02 \x01(\x0b\x32\x05.Data\"/\n\x08Response\x12\x12\n\nstatusCode\x18\x01 \x01(\x05\x12\x0f\n\x07message\x18\x02 \x01(\t\"2\n\x07Request\x12\x0b\n\x03uid\x18\x01 \x01(\t\x12\x0b\n\x03key\x18\x02 \x01(\t\x12\r\n\x05value\x18\x03 \x01(\t2\xd7\x02\n\x05Paxos\x12-\n\x05start\x12\n.StartArgs\x1a\x16.google.protobuf.Empty\"\x00\x12/\n\x06\x66inish\x12\x0b.FinishArgs\x1a\x16.google.protobuf.Empty\"\x00\x12(\n\x03max\x12\x16.google.protobuf.Empty\x1a\x07.Number\"\x00\x12(\n\x03min\x12\x16.google.protobuf.Empty\x1a\x07.Number\"\x00\x12(\n\x07prepare\x12\x0c.PrepareArgs\x1a\r.PrepareReply\"\x00\x12%\n\x06\x61\x63\x63\x65pt\x12\x0b.AcceptArgs\x1a\x0c.AcceptReply\"\x00\x12&\n\x07\x64\x65\x63ided\x12\x0b.DecideArgs\x1a\x0c.DecideReply\"\x00\x12!\n\x06status\x12\x07.Number\x1a\x0c.StatusReply\"\x00\x32l\n\rKeyValueStore\x12\x1c\n\x03get\x12\x08.Request\x1a\t.Response\"\x00\x12\x1c\n\x03put\x12\x08.Request\x1a\t.Response\"\x00\x12\x1f\n\x06\x64\x65lete\x12\x08.Request\x1a\t.Response\"\x00\x62\x06proto3'
     ,
     dependencies=[google_dot_protobuf_dot_empty__pb2.DESCRIPTOR, ])
 
@@ -89,8 +89,8 @@ _PREPAREARGS = _descriptor.Descriptor(
             serialized_options=None, file=DESCRIPTOR),
         _descriptor.FieldDescriptor(
             name='proposal', full_name='PrepareArgs.proposal', index=1,
-            number=2, type=3, cpp_type=2, label=1,
-            has_default_value=False, default_value=0,
+            number=2, type=2, cpp_type=6, label=1,
+            has_default_value=False, default_value=float(0),
             message_type=None, enum_type=None, containing_type=None,
             is_extension=False, extension_scope=None,
             serialized_options=None, file=DESCRIPTOR),
@@ -119,15 +119,15 @@ _PREPAREREPLY = _descriptor.Descriptor(
     fields=[
         _descriptor.FieldDescriptor(
             name='promised', full_name='PrepareReply.promised', index=0,
-            number=1, type=3, cpp_type=2, label=1,
-            has_default_value=False, default_value=0,
+            number=1, type=2, cpp_type=6, label=1,
+            has_default_value=False, default_value=float(0),
             message_type=None, enum_type=None, containing_type=None,
             is_extension=False, extension_scope=None,
             serialized_options=None, file=DESCRIPTOR),
         _descriptor.FieldDescriptor(
             name='acceptedProposal', full_name='PrepareReply.acceptedProposal', index=1,
-            number=2, type=3, cpp_type=2, label=1,
-            has_default_value=False, default_value=0,
+            number=2, type=2, cpp_type=6, label=1,
+            has_default_value=False, default_value=float(0),
             message_type=None, enum_type=None, containing_type=None,
             is_extension=False, extension_scope=None,
             serialized_options=None, file=DESCRIPTOR),
@@ -170,8 +170,8 @@ _ACCEPTARGS = _descriptor.Descriptor(
             serialized_options=None, file=DESCRIPTOR),
         _descriptor.FieldDescriptor(
             name='proposal', full_name='AcceptArgs.proposal', index=1,
-            number=2, type=3, cpp_type=2, label=1,
-            has_default_value=False, default_value=0,
+            number=2, type=2, cpp_type=6, label=1,
+            has_default_value=False, default_value=float(0),
             message_type=None, enum_type=None, containing_type=None,
             is_extension=False, extension_scope=None,
             serialized_options=None, file=DESCRIPTOR),
@@ -244,8 +244,8 @@ _DECIDEARGS = _descriptor.Descriptor(
             serialized_options=None, file=DESCRIPTOR),
         _descriptor.FieldDescriptor(
             name='proposal', full_name='DecideArgs.proposal', index=1,
-            number=2, type=3, cpp_type=2, label=1,
-            has_default_value=False, default_value=0,
+            number=2, type=2, cpp_type=6, label=1,
+            has_default_value=False, default_value=float(0),
             message_type=None, enum_type=None, containing_type=None,
             is_extension=False, extension_scope=None,
             serialized_options=None, file=DESCRIPTOR),
@@ -408,8 +408,8 @@ _STATUSREPLY = _descriptor.Descriptor(
     fields=[
         _descriptor.FieldDescriptor(
             name='status', full_name='StatusReply.status', index=0,
-            number=1, type=9, cpp_type=9, label=1,
-            has_default_value=False, default_value=b"".decode('utf-8'),
+            number=1, type=3, cpp_type=2, label=1,
+            has_default_value=False, default_value=0,
             message_type=None, enum_type=None, containing_type=None,
             is_extension=False, extension_scope=None,
             serialized_options=None, file=DESCRIPTOR),
