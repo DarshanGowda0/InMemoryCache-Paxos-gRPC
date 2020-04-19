@@ -7,6 +7,8 @@ from enum import Enum
 
 from lib.paxos_pb2 import *
 from lib.paxos_pb2_grpc import *
+from grpc_status import rpc_status
+from google.rpc import error_details_pb2
 
 
 class Status(Enum):
@@ -36,7 +38,7 @@ class PaxosImpl(PaxosServicer):
         self.instances = {}
 
         self.peers = peers
-        self.majoritySize = 1
+        self.majoritySize = len(peers) // 2 + 1
         self.me = me
         self.finishedProposals = [-1 for _ in peers]
         self.maxProposalSeen = -1
@@ -51,7 +53,10 @@ class PaxosImpl(PaxosServicer):
         isPromise = False
 
         if prepareArgs.pid in self.instances:
-            if self.instances[prepareArgs.pid].promisedN < prepareArgs.proposal:
+            logger.info(
+                'prepare seq id  promisedN {} and got proposal {} '.format(self.instances[prepareArgs.pid].promisedN,
+                                                                           prepareArgs.proposal))
+            if self.instances[prepareArgs.pid].promisedN <= prepareArgs.proposal:
                 isPromise = True
         else:
             self.instances[prepareArgs.pid] = State()
@@ -62,10 +67,16 @@ class PaxosImpl(PaxosServicer):
             reply.promised = PromisedSignal
             reply.acceptedProposal = self.instances[prepareArgs.pid].acceptedN
             if self.instances[prepareArgs.pid].acceptedValue:
-                reply.acceptedValue = self.instances[prepareArgs.pid].acceptedValue
+                logger.info('accepted value {} {} {} {}'.format(self.instances[prepareArgs.pid].acceptedValue.type,
+                                                                self.instances[prepareArgs.pid].acceptedValue.key,
+                                                                self.instances[prepareArgs.pid].acceptedValue.value,
+                                                                self.instances[prepareArgs.pid].acceptedValue.uid))
+                reply.acceptedValue.type = self.instances[prepareArgs.pid].acceptedValue.type
+                reply.acceptedValue.key = self.instances[prepareArgs.pid].acceptedValue.key
+                reply.acceptedValue.value = self.instances[prepareArgs.pid].acceptedValue.value
+                reply.acceptedValue.uid = self.instances[prepareArgs.pid].acceptedValue.uid
 
-        logger.info('returning reply pid {} promisedN {} acceptedN {}'.format(prepareArgs.pid, reply.promised,
-                                                                              reply.acceptedProposal))
+        logger.info('accept done')
         return reply
 
     def prepare(self, prepareArgs: PrepareArgs, context) -> PrepareReply:
@@ -95,19 +106,14 @@ class PaxosImpl(PaxosServicer):
     def doDecide(self, decideArgs: DecideArgs):
         logger.info('do decide called with pid {} proposal {}'.format(decideArgs.pid, decideArgs.proposal))
         if decideArgs.pid in self.instances:
-            logger.info('do decide updating status to decide for {}'.format(decideArgs.pid))
             self.instances[decideArgs.pid].acceptedN = decideArgs.proposal
             self.instances[decideArgs.pid].acceptedValue = decideArgs.value
             self.instances[decideArgs.pid].status = Status.DECIDED.value
         else:
-            logger.info('do decide creating status to decide for {}'.format(decideArgs.pid))
             self.instances[decideArgs.pid] = State(promisedN=decideArgs.proposal, acceptedN=decideArgs.proposal,
                                                    acceptedValue=decideArgs.value, status=Status.DECIDED.value)
-            logger.info('do decide creating status done to decide for {}'.format(decideArgs.pid))
 
-        logger.info('exec maxSeq {} pid {}'.format(self.maxSeq, decideArgs.pid))
         self.maxSeq = max(self.maxSeq, decideArgs.pid)
-        logger.info('returning from do decide {}!'.format(self.doneSeqs[self.me]))
         return DecideReply(done=self.doneSeqs[self.me])
 
     def decided(self, decideArgs: DecideArgs, context) -> DecideReply:
@@ -142,6 +148,19 @@ class PaxosImpl(PaxosServicer):
 
         return servers
 
+    @staticmethod
+    def __handleError(rpc_error: grpc.RpcError):
+        logger.error('Call failure: %s', rpc_error)
+        status = rpc_status.from_call(rpc_error)
+        logger.error('Error in calling RPC')
+        # for detail in status.details:
+        #     if detail.Is(error_details_pb2.QuotaFailure.DESCRIPTOR):
+        #         info = error_details_pb2.QuotaFailure()
+        #         detail.Unpack(info)
+        #         logger.error('Quota failure: %s', info)
+        #     else:
+        #         raise RuntimeError('Unexpected failure: %s' % detail)
+
     def __sendPrepare(self, acceptors, pid, proposalNumber, value):
         logger.info('send prepare called for seq {} num {} val {}'.format(pid, proposalNumber, value))
         servers = 0
@@ -149,15 +168,19 @@ class PaxosImpl(PaxosServicer):
         maxValue = value
         maxN = -1
         for acc in acceptors:
-            logger.info('acc {}'.format(acc))
+            logger.info('for acc {}'.format(acc))
             reply: PrepareReply = None
             if acc == self.me:
                 reply = self.doPrepare(prepareArgs)
             else:
                 paxosStub = self.__getStubFor(acc)
-                reply = paxosStub.prepare(prepareArgs)
+                try:
+                    reply = paxosStub.prepare(prepareArgs)
+                except grpc.RpcError as rpc_error:
+                    self.__handleError(rpc_error)
 
             if reply and reply.promised == PromisedSignal:
+                logger.info('reply promised with accept {}'.format(reply.acceptedProposal))
                 if reply.acceptedProposal > maxN:
                     maxN = reply.acceptedProposal
                     maxValue = reply.acceptedValue
@@ -170,11 +193,15 @@ class PaxosImpl(PaxosServicer):
         servers = 0
         acceptArgs = AcceptArgs(pid=pid, proposal=proposalNumber, value=maxValue)
         for acc in acceptors:
+            reply = None
             if acc == self.me:
                 reply = self.doAccept(acceptArgs)
             else:
                 paxosStub = self.__getStubFor(acc)
-                reply = paxosStub.accept(acceptArgs)
+                try:
+                    reply = paxosStub.accept(acceptArgs)
+                except grpc.RpcError as rpc_error:
+                    self.__handleError(rpc_error)
 
             if reply and reply.accepted:
                 servers += 1
@@ -186,32 +213,34 @@ class PaxosImpl(PaxosServicer):
         decideArgs = DecideArgs(pid=pid, proposal=proposalNumber, value=maxValue)
         allDecided = False
         minDone = sys.maxsize
-        # dones = {}
+        toSleep = 0.03
         while not allDecided:
             allDecided = True
             for i, server in enumerate(self.peers):
-                logger.info('for server {}'.format(server))
+                reply = None
                 if server == self.me:
                     reply = self.doDecide(decideArgs)
                 else:
                     paxosStub = self.__getStubFor(server)
-                    reply = paxosStub.decided(decideArgs)
-                logger.info('received {}, decided {}, min done {}'.format(reply.done, allDecided, minDone))
+                    try:
+                        reply = paxosStub.decided(decideArgs)
+                    except grpc.RpcError as rpc_error:
+                        self.__handleError(rpc_error)
 
                 if not reply:
                     allDecided = False
                 else:
                     minDone = min(minDone, reply.done)
                     self.doneSeqs[server] = reply.done
-                logger.info('received 2 {}, decided {}, min done {}'.format(reply.done, allDecided, minDone))
 
             if not allDecided:
-                time.sleep(0.03)
-
-        logger.info('all decided')
+                time.sleep(toSleep)
+                if toSleep < 2:
+                    toSleep *= 2
+                else:
+                    break
 
         if minDone != InitialValue:
-            # self.doneSeqs = dones
             for key, _ in self.instances.items():
                 if key <= minDone:
                     del (self.instances[key])
@@ -227,7 +256,6 @@ class PaxosImpl(PaxosServicer):
         def inner(args: StartArgs):
             if args.pid < self.minSeq:
                 return
-            logger.info('pid {} minSeq {}'.format(args.pid, self.minSeq))
             while True:
                 proposalNumber = self.__getNextProposalNumber()
                 logger.info('trying proposal number {}'.format(proposalNumber))
