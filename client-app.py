@@ -76,7 +76,7 @@ if __name__ == '__main__':
     stub = KeyValueStoreStub(channel)
 
     client = Client(stub)
-    client.pre_populate()
+    # client.pre_populate()
 
     while True:
         inputString = input("Enter the operation to be performed:\nPUT <key> <value>\nGET <key>\nDELETE <key>\n")

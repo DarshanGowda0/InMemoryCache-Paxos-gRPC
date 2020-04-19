@@ -8,7 +8,6 @@ from enum import Enum
 from lib.paxos_pb2 import *
 from lib.paxos_pb2_grpc import *
 from grpc_status import rpc_status
-from google.rpc import error_details_pb2
 
 
 class Status(Enum):
@@ -67,10 +66,6 @@ class PaxosImpl(PaxosServicer):
             reply.promised = PromisedSignal
             reply.acceptedProposal = self.instances[prepareArgs.pid].acceptedN
             if self.instances[prepareArgs.pid].acceptedValue:
-                logger.info('accepted value {} {} {} {}'.format(self.instances[prepareArgs.pid].acceptedValue.type,
-                                                                self.instances[prepareArgs.pid].acceptedValue.key,
-                                                                self.instances[prepareArgs.pid].acceptedValue.value,
-                                                                self.instances[prepareArgs.pid].acceptedValue.uid))
                 reply.acceptedValue.type = self.instances[prepareArgs.pid].acceptedValue.type
                 reply.acceptedValue.key = self.instances[prepareArgs.pid].acceptedValue.key
                 reply.acceptedValue.value = self.instances[prepareArgs.pid].acceptedValue.value
@@ -153,13 +148,6 @@ class PaxosImpl(PaxosServicer):
         logger.error('Call failure: %s', rpc_error)
         status = rpc_status.from_call(rpc_error)
         logger.error('Error in calling RPC')
-        # for detail in status.details:
-        #     if detail.Is(error_details_pb2.QuotaFailure.DESCRIPTOR):
-        #         info = error_details_pb2.QuotaFailure()
-        #         detail.Unpack(info)
-        #         logger.error('Quota failure: %s', info)
-        #     else:
-        #         raise RuntimeError('Unexpected failure: %s' % detail)
 
     def __sendPrepare(self, acceptors, pid, proposalNumber, value):
         logger.info('send prepare called for seq {} num {} val {}'.format(pid, proposalNumber, value))
@@ -235,7 +223,7 @@ class PaxosImpl(PaxosServicer):
 
             if not allDecided:
                 time.sleep(toSleep)
-                if toSleep < 2:
+                if toSleep < 1:
                     toSleep *= 2
                 else:
                     break
